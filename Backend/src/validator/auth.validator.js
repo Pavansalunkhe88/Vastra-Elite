@@ -26,6 +26,8 @@ export const validateRegisterUser = [
     .notEmpty()
     .isLength({ min: 3, max: 100 })
     .withMessage("Full name must be between 2 and 100 characters"),
+   body("isSeller")
+        .isBoolean().withMessage("isSeller must be a boolean value"),
 
     validateRequest,
 ];
@@ -33,4 +35,5 @@ export const validateRegisterUser = [
 export const validateLogin = [
   body("email").isEmail().normalizeEmail(),
   body("password").isLength({ min: 6 }),
+  validateRequest,
 ];
