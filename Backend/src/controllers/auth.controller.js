@@ -58,7 +58,7 @@ export const register = async (req,res)=>{
 export const login = async (req,res)=>{
     const {email,password}=req.body;
 
-    
+    try {
         const user = await userModel.findOne({ email });
 
         if (!user) {
@@ -75,4 +75,8 @@ export const login = async (req,res)=>{
         // If login is successful, send token response
         await sendTokenResponse(user, res, "User logged in successfully");
 
+    } catch (error) {
+        console.error("Login error:", error);
+        return res.status(500).json({ message: "Internal server error" });
+    }
 }        
