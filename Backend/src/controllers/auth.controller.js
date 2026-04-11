@@ -80,3 +80,22 @@ export const login = async (req,res)=>{
         return res.status(500).json({ message: "Internal server error" });
     }
 }        
+
+export const googleCallback = async (req, res) => {
+
+    console.log(req.user)
+    // This function will be called after successful authentication with Google
+    // You can access the authenticated user's profile information in req.user
+    const userProfile = req.user;
+
+    // Here, you would typically find or create a user in your database based on the Google profile information
+    // For this example, we'll just return the profile information as a response
+    
+    res.status(200).json({
+        message: "Google authentication successful",
+        userProfile
+    });
+
+    res.redirect("http://localhost:5173/")
+    
+}           
