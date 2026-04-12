@@ -82,20 +82,32 @@ export const login = async (req,res)=>{
 }        
 
 export const googleCallback = async (req, res) => {
+    try {
+        const user = req.user;
 
-    console.log(req.user)
-    // This function will be called after successful authentication with Google
-    // You can access the authenticated user's profile information in req.user
-    const userProfile = req.user;
+        if (!user) {
+            return res.redirect("http://localhost:5173/login?error=auth_failed");
+        }
 
-    // Here, you would typically find or create a user in your database based on the Google profile information
-    // For this example, we'll just return the profile information as a response
-    
-    res.status(200).json({
-        message: "Google authentication successful",
-        userProfile
-    });
+        const token = jwt.sign({
+            id: user._id,
+        }, config.JWT_SECRET, {
+            expiresIn: "7d"
+        });
 
-    res.redirect("http://localhost:5173/")
-    
+        // Set token in cookie
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+        });
+
+        // Redirect to frontend homepage
+        res.redirect("http://localhost:5173/");
+        
+    } catch (error) {
+        console.error("Google Callback Error:", error);
+        res.redirect("http://localhost:5173/login?error=internal_server_error");
+    }
 }           
