@@ -9,7 +9,12 @@ async function sendTokenResponse(user,res,message){
         expiresIn: "7d"
     })
 
-    res.cookie("token", token)
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    })
 
     res.status(200).json({
         message,
