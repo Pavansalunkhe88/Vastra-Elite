@@ -3,7 +3,7 @@ import { config } from "../config/config.js";
 import userModel from "../models/user.model.js";
 
 export const authenticateSeller = async(req, res, next) => {
-    const token =req.cokkie.token || req.headers['authorization']?.split(' ')[1];
+    const token = req.cookies?.token || req.headers['authorization']?.split(' ')[1];
 
     if(!token){
         return res.status(401).json({message:'Access Denied'});
@@ -11,7 +11,7 @@ export const authenticateSeller = async(req, res, next) => {
 
     try{
         const decoded = jwt.verify(token, config.JWT_SECRET);
-        req.user = await userModel.findById(decoded.id).select('-password');
+        const user = await userModel.findById(decoded.id).select('-password');
 
         if(!user){
             return res.status(401).json({message:'User Not Found'});
