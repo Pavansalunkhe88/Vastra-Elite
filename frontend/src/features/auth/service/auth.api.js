@@ -30,3 +30,9 @@ export async function login({email,password}){
     })
     return response.data
 }   
+
+export async function getMe(){
+    // Make a GET request to the /me endpoint to retrieve the current user's information
+    const response = await authApiInstance.get("/me")
+    return response.data
+}

@@ -115,4 +115,29 @@ export const googleCallback = async (req, res) => {
         console.error("Google Callback Error:", error);
         res.redirect("http://localhost:5173/login?error=internal_server_error");
     }
-}           
+}    
+
+export const getMe = async(req,res)=>{
+    try{
+        const user = req.user;
+        if(!user){
+            return res.status(404).json({message:'User Not Found'});
+        }
+
+        res.status(200).json({
+            message:'User retrieved successfully',
+            success: true,
+            user: {
+                id: user._id,
+                email: user.email,
+                contact: user.contact,
+                fullname: user.fullname,
+                role: user.role
+            }
+        })
+    }
+    catch(error){
+        console.error("Get Current User Error:", error);
+        res.status(500).json({message:'Internal Server Error'});
+    }
+}
