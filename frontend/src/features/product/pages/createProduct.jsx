@@ -3,6 +3,7 @@ import { useProduct } from '../hook/useProduct';
 import { useNavigate } from "react-router";
 import '../../auth/styles/Auth.css';
 
+// old page
 const CreateProduct = () => {
     const { handleCreateProduct } = useProduct();
     const navigate = useNavigate();
