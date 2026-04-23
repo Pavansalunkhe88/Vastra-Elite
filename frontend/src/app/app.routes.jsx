@@ -5,11 +5,16 @@ import CreateProduct from "../features/product/pages/createProduct.jsx";
 import Dashboard from "../features/product/pages/Dashboard.jsx";
 import Protected from "../features/auth/components/Protected.jsx";
 import Home from "../features/product/pages/Home.jsx";
+import CartPage from "../features/cart/pages/CartPage.jsx";
 
 export const routes = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "/cart",
+    element: <CartPage />,
   },
   {
     path: "/register",
