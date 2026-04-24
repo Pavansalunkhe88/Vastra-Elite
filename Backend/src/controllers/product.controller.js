@@ -1,58 +1,86 @@
 import productModel from '../models/product.model.js';
 import { uploadFile } from '../services/storage.service.js';
 
-export async function createProduct(req,res){
-    const {title,description,priceAmount,priceCurrency} = req.body;
+export async function createProduct(req, res) {
+    try {
+        const { title, description, priceAmount, priceCurrency } = req.body;
+        const seller = req.user;
 
-    const seller=req.user;
+        if (!req.files || req.files.length === 0) {
+            return res.status(400).json({ message: 'At least one image is required', success: false });
+        }
 
-    const images = await Promise.all(req.files.map(async(file)=>{
-        const result = await uploadFile({
-            buffer:file.buffer,
-            fileName:file.originalname
+        const images = await Promise.all(req.files.map(async (file) => {
+            const result = await uploadFile({
+                buffer: file.buffer,
+                fileName: file.originalname
+            });
+            return { url: result.url };
+        }))
+
+        const product = new productModel({
+            title,
+            description,
+            seller: seller._id,
+            price: {
+                amount: priceAmount,
+                currency: priceCurrency || 'INR'
+            },
+            image: images
         });
-        return {url:result.url};
-    }))
 
-    const product = new productModel({
-        title,
-        description,    
-        seller:seller._id,
-        price:{ 
-            amount:priceAmount,
-            currency:priceCurrency || 'INR'
-        },
-        image: images
-    });
+        await product.save();
 
-    await product.save();
-
-    res.status(201).json({
-        message:'Product Created Successfully',
-        success:true,
-        product
-    });
-
+        res.status(201).json({
+            message: 'Product Created Successfully',
+            success: true,
+            product
+        });
+    } catch (error) {
+        console.error("Create Product Error:", error);
+        res.status(500).json({
+            message: 'Internal Server Error',
+            success: false,
+            error: error.message
+        });
+    }
 }
 
-export async function getSellerProducts(req,res){
-    const seller = req.user;
+export async function getSellerProducts(req, res) {
+    try {
+        const seller = req.user;
+        const products = await productModel.find({ seller: seller._id });
 
-    const products = await productModel.find({seller:seller._id});
-
-    res.status(200).json({
-        message:'Products fetched successfully',
-        success:true,
-        products
-    });
+        res.status(200).json({
+            message: 'Products fetched successfully',
+            success: true,
+            products
+        });
+    } catch (error) {
+        console.error("Get Seller Products Error:", error);
+        res.status(500).json({
+            message: 'Internal Server Error',
+            success: false,
+            error: error.message
+        });
+    }
 }
 
-export async function getAllProducts(req,res){
-    const products = await productModel.find().populate('seller','fullname contact');
+export async function getAllProducts(req, res) {
+    try {
+        const products = await productModel.find().populate('seller', 'fullname contact');
 
-    res.status(200).json({
-        message:'Products fetched successfully',
-        success:true,
-        products
-    });
+        res.status(200).json({
+            message: 'Products fetched successfully',
+            success: true,
+            products
+        });
+    } catch (error) {
+        console.error("Get All Products Error:", error);
+        res.status(500).json({
+            message: 'Internal Server Error',
+            success: false,
+            error: error.message
+        });
+    }
 }

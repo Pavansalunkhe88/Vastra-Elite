@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useAuth } from "../hook/useAuth";
 import { useNavigate, Link } from "react-router";
 import { useSelector } from 'react-redux';
-import '../styles/Auth.css';
 
 const Login = () => {
     const { handleLogin } = useAuth();
@@ -37,161 +36,121 @@ const Login = () => {
             else if(user.role === "seller"){
                 navigate("/seller/dashboard");
             }
-            
-        } catch (err) {
-            // Error is already dispatched to Redux by useAuth
-        }
+        } catch (err) {}
     };
 
     return (
-        <div className="auth-page-wrapper">
-            {/* Animated background orbs */}
-            <div className="auth-orb orb-one"></div>
-            <div className="auth-orb orb-two"></div>
-            <div className="auth-orb orb-three"></div>
-
-            <div className="auth-container">
-                {/* Left Panel — Brand Side */}
-                <div className="auth-left-panel">
-                    <div className="auth-left-overlay"></div>
-                    <div className="auth-left-content">
-                        <div className="auth-logo-area">
-                            <div className="auth-logo-icon">VE</div>
-                            <span className="auth-logo-text">Vastra Elite</span>
-                        </div>
-
-                        <div className="auth-hero-text">
-                            <h1 className="auth-hero-title">
-                                Welcome
-                                <span className="auth-hero-accent"> Back</span>
-                            </h1>
-                            <p className="auth-hero-sub">
-                                Sign in to explore the latest exclusive drops,
-                                manage your collections, and continue your style journey.
-                            </p>
-                        </div>
-
-                        {/* Decorative quote */}
-                        <div className="auth-quote-section">
-                            <div className="auth-quote-mark">"</div>
-                            <p className="auth-quote-text">
-                                Fashion is the armor to survive the reality of everyday life.
-                            </p>
-                            <p className="auth-quote-author">— Bill Cunningham</p>
-                        </div>
-                    </div>
+        <div className="min-h-screen flex bg-[#FAFAFA] font-sans">
+            
+            {/* Left Panel - Branding */}
+            <div className="hidden lg:flex w-1/2 bg-white flex-col justify-between p-20 border-r border-gray-100 relative overflow-hidden">
+                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-5 grayscale mix-blend-multiply"></div>
+                
+                <div className="relative z-10">
+                    <Link to="/" className="text-3xl font-serif font-light tracking-[0.2em] text-gray-900">
+                        VASTRA ELITE
+                    </Link>
+                </div>
+                
+                <div className="relative z-10 max-w-lg space-y-8">
+                    <h1 className="text-5xl font-serif text-gray-900 leading-[1.2] tracking-tight">
+                        Welcome <br/> <span className="italic font-light text-gray-400">Back</span>
+                    </h1>
+                    <p className="text-gray-500 font-light leading-relaxed text-lg">
+                        Sign in to explore the latest exclusive drops, manage your collections, and continue your elegant style journey.
+                    </p>
                 </div>
 
-                {/* Right Panel — Form Side */}
-                <div className="auth-right-panel">
-                    {/* Mobile logo */}
-                    <div className="auth-mobile-logo">
-                        <div className="auth-logo-icon">VE</div>
-                        <span className="auth-logo-text">Vastra Elite</span>
+                <div className="relative z-10">
+                    <p className="text-xs uppercase tracking-[0.2em] text-gray-400 font-medium">Est. 2026</p>
+                </div>
+            </div>
+
+            {/* Right Panel - Form */}
+            <div className="w-full lg:w-1/2 flex items-center justify-center p-8 sm:p-16 lg:p-24 relative">
+                
+                <div className="w-full max-w-md space-y-12">
+                    
+                    {/* Mobile Brand */}
+                    <div className="lg:hidden text-center mb-16">
+                        <Link to="/" className="text-2xl font-serif font-light tracking-[0.2em] text-gray-900 inline-block">
+                            VASTRA ELITE
+                        </Link>
                     </div>
 
-                    <div className="auth-form-header">
-                        <h2 className="auth-form-title">Sign In</h2>
-                        <p className="auth-form-subtitle">Enter your credentials to access your account</p>
+                    <div className="space-y-3">
+                        <h2 className="text-3xl font-serif tracking-wide text-gray-900">Sign In</h2>
+                        <p className="text-gray-500 font-light text-sm">Enter your details to access your account.</p>
                     </div>
 
-                    {/* Error display */}
                     {error && (
-                        <div className="auth-error-box">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff6b6b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="15" y1="9" x2="9" y2="15"></line>
-                                <line x1="9" y1="9" x2="15" y2="15"></line>
-                            </svg>
+                        <div className="bg-red-50 border border-red-100 text-red-600 px-4 py-3 text-sm flex items-center gap-3">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             <span>{error}</span>
                         </div>
                     )}
 
-                    <form onSubmit={handleSubmit} className="auth-form">
-                        {/* Email */}
-                        <div className="auth-input-group">
-                            <label className="auth-input-label">Email Address</label>
-                            <div className="auth-input-wrapper">
-                                <svg className="auth-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                    <polyline points="22,6 12,13 2,6"></polyline>
-                                </svg>
-                                <input
-                                    className="auth-input"
-                                    type="email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    required
-                                    placeholder="your@email.com"
-                                />
-                            </div>
+                    <form onSubmit={handleSubmit} className="space-y-8">
+                        <div className="space-y-2">
+                            <label className="text-xs uppercase tracking-wider text-gray-500 font-medium ml-1">Email Address</label>
+                            <input
+                                type="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                                placeholder="name@example.com"
+                                className="w-full bg-white border-b border-gray-300 px-4 py-4 focus:outline-none focus:border-gray-900 transition-colors font-light placeholder-gray-300"
+                            />
                         </div>
 
-                        {/* Password */}
-                        <div className="auth-input-group">
-                            <div className="auth-label-row">
-                                <label className="auth-input-label">Password</label>
-                                <a href="#" className="forgot-link">Forgot password?</a>
+                        <div className="space-y-2">
+                            <div className="flex justify-between items-center ml-1">
+                                <label className="text-xs uppercase tracking-wider text-gray-500 font-medium">Password</label>
+                                <a href="#" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">Forgot password?</a>
                             </div>
-                            <div className="auth-input-wrapper">
-                                <svg className="auth-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                                </svg>
+                            <div className="relative">
                                 <input
-                                    className="auth-input"
                                     type={showPassword ? "text" : "password"}
                                     name="password"
                                     value={formData.password}
                                     onChange={handleChange}
                                     required
                                     placeholder="Enter your password"
+                                    className="w-full bg-white border-b border-gray-300 px-4 py-4 focus:outline-none focus:border-gray-900 transition-colors font-light placeholder-gray-300 pr-12"
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="auth-eye-btn"
-                                    aria-label="Toggle password visibility"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-900"
                                 >
                                     {showPassword ? (
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
-                                            <line x1="1" y1="1" x2="23" y2="23"></line>
-                                        </svg>
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg>
                                     ) : (
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                            <circle cx="12" cy="12" r="3"></circle>
-                                        </svg>
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
                                     )}
                                 </button>
                             </div>
                         </div>
 
-                        {/* Submit */}
-                        <button className="auth-submit-btn" type="submit" disabled={loading}>
-                            {loading ? (
-                                <div className="auth-spinner"></div>
-                            ) : (
-                                <>
-                                    Sign In
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                        <polyline points="12 5 19 12 12 19"></polyline>
-                                    </svg>
-                                </>
-                            )}
+                        <button 
+                            type="submit" 
+                            disabled={loading}
+                            className="w-full bg-gray-900 text-white uppercase tracking-[0.2em] text-xs font-medium py-5 hover:bg-gray-800 transition-colors disabled:bg-gray-300 mt-4"
+                        >
+                            {loading ? 'Processing...' : 'Sign In'}
                         </button>
 
-                        <div className="auth-divider-row">
-                            <div className="auth-divider-line"></div>
-                            <span className="auth-divider-text">or</span>
-                            <div className="auth-divider-line"></div>
+                        <div className="flex items-center gap-4 py-6">
+                            <div className="flex-1 h-px bg-gray-200"></div>
+                            <span className="text-xs text-gray-400 uppercase tracking-widest">or</span>
+                            <div className="flex-1 h-px bg-gray-200"></div>
                         </div>
 
-                        {/* Google Login */}
-                        <a href="/api/auth/google" className="auth-google-btn">
+                        <a 
+                            href="/api/auth/google" 
+                            className="w-full flex items-center justify-center gap-3 border border-gray-200 py-4 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+                        >
                             <svg width="20" height="20" viewBox="0 0 24 24">
                                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                                 <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -201,9 +160,8 @@ const Login = () => {
                             Continue with Google
                         </a>
 
-                        <p className="auth-switch-text">
-                            Don't have an account?{' '}
-                            <Link to="/register" className="auth-switch-link">Create Account</Link>
+                        <p className="text-center text-sm text-gray-500 pt-8">
+                            Don't have an account? <Link to="/register" className="text-gray-900 border-b border-gray-900 pb-0.5 ml-2 hover:text-gray-500 hover:border-gray-500 transition-colors">Create Account</Link>
                         </p>
                     </form>
                 </div>

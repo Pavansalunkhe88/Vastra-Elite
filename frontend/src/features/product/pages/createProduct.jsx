@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { useProduct } from '../hook/useProduct';
-import { useNavigate } from "react-router";
-import '../../auth/styles/Auth.css';
+import { useNavigate, Link } from "react-router";
 
-// old page
 const CreateProduct = () => {
     const { handleCreateProduct } = useProduct();
     const navigate = useNavigate();
@@ -55,173 +53,137 @@ const CreateProduct = () => {
     };
 
     return (
-        <div className="auth-page-wrapper">
-            {/* Animated background orbs */}
-            <div className="auth-orb orb-one"></div>
-            <div className="auth-orb orb-two"></div>
-            <div className="auth-orb orb-three"></div>
+        <div className="min-h-screen flex bg-[#FAFAFA] font-sans">
+            
+            {/* Left Panel */}
+            <div className="hidden lg:flex w-1/3 bg-white flex-col justify-between p-16 border-r border-gray-100 relative overflow-hidden">
+                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-5 grayscale mix-blend-multiply"></div>
+                 
+                 <div className="relative z-10">
+                     <Link to="/" className="text-xl font-serif font-light tracking-[0.2em] text-gray-900">
+                         VASTRA ELITE
+                     </Link>
+                 </div>
+                 
+                 <div className="relative z-10 space-y-6">
+                     <span className="text-xs uppercase tracking-[0.2em] text-gray-400 font-medium">Boutique</span>
+                     <h1 className="text-4xl font-serif text-gray-900 leading-[1.2] tracking-tight">
+                         Expand Your <br/> <span className="italic font-light text-gray-400">Collection</span>
+                     </h1>
+                     <p className="text-gray-500 font-light leading-relaxed text-sm">
+                         List new exclusive pieces to your elegant storefront. Showcase your premium luxury items to the world.
+                     </p>
+                 </div>
+ 
+                 <div className="relative z-10">
+                     <p className="text-xs uppercase tracking-[0.2em] text-gray-400 font-medium">Create Listing</p>
+                 </div>
+            </div>
 
-            <div className="auth-container" style={{ maxWidth: '1000px' }}>
-                {/* Left Panel — Brand Side */}
-                <div className="auth-left-panel">
-                    <div className="auth-left-overlay"></div>
-                    <div className="auth-left-content">
-                        <div className="auth-logo-area">
-                            <div className="auth-logo-icon">VE</div>
-                            <span className="auth-logo-text">Vastra Elite</span>
-                        </div>
-
-                        <div className="auth-hero-text">
-                            <h1 className="auth-hero-title">
-                                Expand Your
-                                <span className="auth-hero-accent"> Collection</span>
-                            </h1>
-                            <p className="auth-hero-sub">
-                                List new exclusive drops to your Vastra Elite storefront.
-                                Showcase your premium luxury pieces to the world.
-                            </p>
-                        </div>
-
-                        {/* Decorative quote */}
-                        <div className="auth-quote-section">
-                            <div className="auth-quote-mark">"</div>
-                            <p className="auth-quote-text">
-                                Detail is what gives a product its soul.
-                            </p>
-                            <p className="auth-quote-author">— Vastra Elite</p>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Right Panel — Form Side */}
-                <div className="auth-right-panel" style={{ overflowY: 'auto' }}>
-                    {/* Mobile logo */}
-                    <div className="auth-mobile-logo">
-                        <div className="auth-logo-icon">VE</div>
-                        <span className="auth-logo-text">Vastra Elite</span>
+            {/* Right Panel */}
+            <div className="w-full lg:w-2/3 py-16 px-8 sm:px-16 lg:px-24 overflow-y-auto">
+                <div className="w-full max-w-2xl mx-auto space-y-12">
+                    
+                    <div className="lg:hidden text-center mb-12">
+                        <Link to="/" className="text-2xl font-serif font-light tracking-[0.2em] text-gray-900 inline-block">
+                            VASTRA ELITE
+                        </Link>
                     </div>
 
-                    <div className="auth-form-header">
-                        <h2 className="auth-form-title">Create Product</h2>
-                        <p className="auth-form-subtitle">Add a new luxury item to your inventory</p>
+                    <div className="space-y-2 border-b border-gray-200 pb-6">
+                        <h2 className="text-3xl font-serif tracking-wide text-gray-900">New Product</h2>
+                        <p className="text-gray-500 font-light text-sm">Add a luxury item to your inventory.</p>
                     </div>
 
-                    {/* Error display */}
                     {error && (
-                        <div className="auth-error-box">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff6b6b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="15" y1="9" x2="9" y2="15"></line>
-                                <line x1="9" y1="9" x2="15" y2="15"></line>
-                            </svg>
+                        <div className="bg-red-50 border border-red-100 text-red-600 px-4 py-3 text-sm flex items-center gap-3">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             <span>{error}</span>
                         </div>
                     )}
 
-                    <form onSubmit={handleSubmit} className="auth-form">
-                        {/* Title */}
-                        <div className="auth-input-group">
-                            <label className="auth-input-label">Product Title</label>
-                            <div className="auth-input-wrapper">
-                                <svg className="auth-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
-                                    <line x1="7" y1="7" x2="7.01" y2="7"></line>
-                                </svg>
-                                <input
-                                    className="auth-input"
-                                    type="text"
-                                    name="title"
-                                    value={formData.title}
-                                    onChange={handleChange}
-                                    required
-                                    placeholder="Enter product title"
-                                />
-                            </div>
+                    <form onSubmit={handleSubmit} className="space-y-8">
+                        
+                        <div className="space-y-2">
+                            <label className="text-xs uppercase tracking-wider text-gray-500 font-medium ml-1">Product Title</label>
+                            <input
+                                type="text"
+                                name="title"
+                                value={formData.title}
+                                onChange={handleChange}
+                                required
+                                placeholder="Enter product title"
+                                className="w-full bg-white border border-gray-200 px-4 py-3 focus:outline-none focus:border-gray-900 transition-colors font-light placeholder-gray-300"
+                            />
                         </div>
 
-                        {/* Description */}
-                        <div className="auth-input-group">
-                            <label className="auth-input-label">Description</label>
-                            <div className="auth-input-wrapper" style={{ height: 'auto' }}>
-                                <textarea
-                                    className="auth-input"
-                                    name="description"
-                                    value={formData.description}
-                                    onChange={handleChange}
-                                    required
-                                    placeholder="Describe your product..."
-                                    style={{ paddingTop: '12px', paddingBottom: '12px', minHeight: '100px', resize: 'vertical' }}
-                                />
-                            </div>
+                        <div className="space-y-2">
+                            <label className="text-xs uppercase tracking-wider text-gray-500 font-medium ml-1">Description</label>
+                            <textarea
+                                name="description"
+                                value={formData.description}
+                                onChange={handleChange}
+                                required
+                                placeholder="Describe your product..."
+                                className="w-full bg-white border border-gray-200 px-4 py-3 focus:outline-none focus:border-gray-900 transition-colors font-light placeholder-gray-300 min-h-[120px] resize-y"
+                            />
                         </div>
 
-                        {/* Price */}
-                        <div className="auth-input-group">
-                            <label className="auth-input-label">Price Amount</label>
-                            <div className="auth-input-wrapper">
-                                <svg className="auth-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <line x1="12" y1="1" x2="12" y2="23"></line>
-                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                                </svg>
-                                <input
-                                    className="auth-input"
-                                    type="number"
-                                    name="priceAmount"
-                                    value={formData.priceAmount}
-                                    onChange={handleChange}
-                                    required
-                                    min="0"
-                                    step="0.01"
-                                    placeholder="e.g. 5000"
-                                />
-                            </div>
+                        <div className="space-y-2">
+                            <label className="text-xs uppercase tracking-wider text-gray-500 font-medium ml-1">Price Amount (INR)</label>
+                            <input
+                                type="number"
+                                name="priceAmount"
+                                value={formData.priceAmount}
+                                onChange={handleChange}
+                                required
+                                min="0"
+                                step="0.01"
+                                placeholder="e.g. 5000"
+                                className="w-full bg-white border border-gray-200 px-4 py-3 focus:outline-none focus:border-gray-900 transition-colors font-light placeholder-gray-300"
+                            />
                         </div>
 
-                        {/* Images */}
-                        <div className="auth-input-group">
-                            <label className="auth-input-label">Product Images (up to 7)</label>
-                            <div className="auth-input-wrapper">
-                                <svg className="auth-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                                    <polyline points="21 15 16 10 5 21"></polyline>
-                                </svg>
+                        <div className="space-y-2">
+                            <label className="text-xs uppercase tracking-wider text-gray-500 font-medium ml-1">Product Images (up to 7)</label>
+                            <div className="w-full bg-white border border-dashed border-gray-300 p-6 flex flex-col items-center justify-center hover:border-gray-900 transition-colors cursor-pointer relative">
+                                <svg className="w-8 h-8 text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                <span className="text-sm text-gray-500 font-light">Click to upload or drag and drop</span>
+                                <span className="text-xs text-gray-400 mt-1">PNG, JPG, JPEG</span>
                                 <input
-                                    className="auth-input"
                                     type="file"
                                     name="images"
                                     onChange={handleFileChange}
                                     multiple
                                     accept="image/*"
-                                    style={{ paddingTop: '10px' }}
                                     required
+                                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                                 />
+                                {files && files.length > 0 && (
+                                    <div className="mt-4 pt-4 border-t border-gray-100 w-full text-center">
+                                        <span className="text-sm font-medium text-gray-900">{files.length} file(s) selected</span>
+                                    </div>
+                                )}
                             </div>
                         </div>
 
-                        {/* Submit */}
-                        <button className="auth-submit-btn" type="submit" disabled={loading}>
-                            {loading ? (
-                                <div className="auth-spinner"></div>
-                            ) : (
-                                <>
-                                    Publish Product
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                    </svg>
-                                </>
-                            )}
-                        </button>
+                        <div className="flex gap-4 pt-6">
+                            <button 
+                                type="button" 
+                                onClick={() => navigate('/seller/dashboard')}
+                                className="w-1/3 bg-white text-gray-900 border border-gray-200 uppercase tracking-[0.2em] text-xs font-medium py-4 hover:bg-gray-50 transition-colors"
+                            >
+                                Cancel
+                            </button>
+                            <button 
+                                type="submit" 
+                                disabled={loading}
+                                className="w-2/3 bg-gray-900 text-white uppercase tracking-[0.2em] text-xs font-medium py-4 hover:bg-gray-800 transition-colors disabled:bg-gray-300"
+                            >
+                                {loading ? 'Processing...' : 'Publish Product'}
+                            </button>
+                        </div>
                         
-                        <button 
-                            type="button" 
-                            className="auth-google-btn" 
-                            onClick={() => navigate('/seller/dashboard')}
-                            style={{ justifyContent: 'center', marginTop: '12px' }}
-                        >
-                            Cancel
-                        </button>
                     </form>
                 </div>
             </div>
