@@ -1,4 +1,5 @@
 import cartModel from "../models/cart.model.js";
+import { createOrder } from "../services/payment.service.js";
 
 export const getCart = async (req, res) => {
     try {
@@ -76,4 +77,47 @@ export const updateCartItemQuantity = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
+};
+
+export const createPaymentOrder = async (req, res) => {
+    try {
+        const cart = await cartModel.findOne({ userId: req.user._id }).populate('items.productId');
+        
+        if (!cart || cart.items.length === 0) {
+            return res.status(400).json({
+                success: false,
+                message: "Cart is empty",
+            });
+        }
+
+        const amount = cart.items.reduce((acc, item) => {
+            if (item.productId && item.productId.price) {
+                return acc + (item.productId.price.amount * item.quantity);
+            }
+            return acc;
+        }, 0);
+
+        console.log('Calculated amount for Razorpay:', amount);
+
+        if (amount <= 0) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid order amount",
+            });
+        }
+
+        const order = await createOrder(amount, "INR");
+        return res.status(200).json({
+            success: true,
+            order,
+        });
+    } catch (error) {
+        console.error('Full Error in createPaymentOrder:', error);
+        return res.status(500).json({
+            success: false,
+            message: error.message || 'Internal Server Error',
+            error: error.toString(),
+            stack: error.stack
+        });
+    }         
 };

@@ -21,3 +21,8 @@ export const updateQuantityApi = async (productId, quantity) => {
     const response = await axios.put(`${API_URL}/update`, { productId, quantity });
     return response.data;
 };
+
+export const createOrderApi = async () => {
+    const response = await axios.post(`${API_URL}/payment/create/order`);
+    return response.data;
+}

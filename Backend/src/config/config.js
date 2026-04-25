@@ -35,7 +35,7 @@ export const config ={
     GOOGLE_CLIENT_ID:process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET:process.env.GOOGLE_CLIENT_SECRET,
     IMAGE_KIT_PRIVATE_KEY:process.env.IMAGE_KIT_PRIVATE_KEY,
-    Razorpay_KEY_ID:process.env.Razorpay_KEY_ID,
-    Razorpay_KEY_SECRET:process.env.Razorpay_KEY_SECRET
+    Razorpay_KEY_ID:process.env.Razorpay_KEY_ID?.trim(),
+    Razorpay_KEY_SECRET:process.env.Razorpay_KEY_SECRET?.trim()
 
 }
