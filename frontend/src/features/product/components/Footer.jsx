@@ -3,62 +3,73 @@ import { Link } from 'react-router';
 
 function Footer() {
   return (
-    <footer className="bg-white text-gray-800 py-24 border-t border-gray-100">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-16 md:gap-8">
+    <footer className="bg-primary-bg text-text-primary py-20 border-t border-border-color">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
         
-        {/* Brand */}
-        <div className="space-y-6 md:col-span-1">
-          <Link to="/" className="text-2xl font-serif font-light tracking-[0.2em] text-gray-900 block">
-            VASTRA ELITE
-          </Link>
-          <p className="text-sm text-gray-500 leading-relaxed font-light">
-            Redefining luxury fashion. Curated collections for the modern elite, crafted with precision and care.
-          </p>
+        {/* Shop */}
+        <div>
+          <h3 className="font-semibold text-sm mb-6">Shop</h3>
+          <ul className="space-y-4 text-sm text-text-secondary">
+            <li><Link to="/category/women" className="hover:text-text-primary transition-colors">Women</Link></li>
+            <li><Link to="/category/men" className="hover:text-text-primary transition-colors">Men</Link></li>
+            <li><Link to="/new-arrivals" className="hover:text-text-primary transition-colors">New Arrivals</Link></li>
+            <li><Link to="/collections" className="hover:text-text-primary transition-colors">Collections</Link></li>
+            <li><Link to="/sale" className="hover:text-text-primary transition-colors">Sale</Link></li>
+          </ul>
         </div>
 
-        {/* Quick Links */}
+        {/* Company */}
         <div>
-          <h3 className="text-gray-900 font-medium text-xs uppercase tracking-[0.15em] mb-6">Explore</h3>
-          <ul className="space-y-4 text-sm font-light text-gray-500">
-            <li><Link to="/products" className="hover:text-gray-900 transition-colors duration-300">New Arrivals</Link></li>
-            <li><Link to="/products" className="hover:text-gray-900 transition-colors duration-300">Bestsellers</Link></li>
-            <li><Link to="/products" className="hover:text-gray-900 transition-colors duration-300">Collections</Link></li>
+          <h3 className="font-semibold text-sm mb-6">Company</h3>
+          <ul className="space-y-4 text-sm text-text-secondary">
+            <li><Link to="/about" className="hover:text-text-primary transition-colors">About VastraElite</Link></li>
+            <li><Link to="/careers" className="hover:text-text-primary transition-colors">Careers</Link></li>
+            <li><Link to="/sustainability" className="hover:text-text-primary transition-colors">Sustainability</Link></li>
+            <li><Link to="/press" className="hover:text-text-primary transition-colors">Press</Link></li>
+            <li><Link to="/stores" className="hover:text-text-primary transition-colors">Store Locator</Link></li>
           </ul>
         </div>
 
         {/* Support */}
         <div>
-          <h3 className="text-gray-900 font-medium text-xs uppercase tracking-[0.15em] mb-6">Support</h3>
-          <ul className="space-y-4 text-sm font-light text-gray-500">
-            <li><Link to="#" className="hover:text-gray-900 transition-colors duration-300">FAQ</Link></li>
-            <li><Link to="#" className="hover:text-gray-900 transition-colors duration-300">Shipping & Returns</Link></li>
-            <li><Link to="#" className="hover:text-gray-900 transition-colors duration-300">Contact Us</Link></li>
+          <h3 className="font-semibold text-sm mb-6">Support</h3>
+          <ul className="space-y-4 text-sm text-text-secondary">
+            <li><Link to="/faq" className="hover:text-text-primary transition-colors">FAQ</Link></li>
+            <li><Link to="/shipping" className="hover:text-text-primary transition-colors">Shipping Information</Link></li>
+            <li><Link to="/returns" className="hover:text-text-primary transition-colors">Returns & Exchanges</Link></li>
+            <li><Link to="/size-guide" className="hover:text-text-primary transition-colors">Size Guide</Link></li>
+            <li><Link to="/contact" className="hover:text-text-primary transition-colors">Contact Us</Link></li>
           </ul>
         </div>
 
-        {/* Newsletter / Social */}
+        {/* Social & Contact */}
         <div>
-           <h3 className="text-gray-900 font-medium text-xs uppercase tracking-[0.15em] mb-6">Newsletter</h3>
-           <p className="text-sm text-gray-500 mb-6 font-light">Subscribe to receive updates, access to exclusive deals, and more.</p>
-           <form className="flex border-b border-gray-300 pb-2 relative group focus-within:border-gray-900 transition-colors">
-             <input 
-                type="email" 
-                placeholder="Email address" 
-                className="bg-transparent text-gray-900 px-0 py-2 w-full focus:outline-none text-sm font-light placeholder-gray-400" 
-             />
-             <button type="submit" className="text-gray-900 px-4 py-2 text-xs tracking-wider uppercase hover:opacity-70 transition-opacity">
-               Join
-             </button>
-           </form>
+           <h3 className="font-semibold text-sm mb-6">Connect</h3>
+           <div className="flex space-x-6 mb-8 text-xs font-medium tracking-widest uppercase text-text-secondary">
+             <a href="#" className="hover:text-text-primary transition-colors">Instagram</a>
+             <a href="#" className="hover:text-text-primary transition-colors">Facebook</a>
+             <a href="#" className="hover:text-text-primary transition-colors">Twitter</a>
+             <a href="#" className="hover:text-text-primary transition-colors">Pinterest</a>
+           </div>
+           
+           <h3 className="font-semibold text-sm mb-4">Payment Methods</h3>
+           <div className="flex gap-2 text-text-secondary text-xs uppercase font-semibold">
+              <span>VISA</span>
+              <span>·</span>
+              <span>MASTERCARD</span>
+              <span>·</span>
+              <span>UPI</span>
+           </div>
         </div>
 
       </div>
       
-      <div className="max-w-7xl mx-auto px-6 mt-20 pt-8 border-t border-gray-100 text-xs font-light text-gray-400 flex flex-col md:flex-row justify-between items-center">
-        <p>&copy; {new Date().getFullYear()} Vastra Elite. All rights reserved.</p>
-        <div className="space-x-8 mt-4 md:mt-0 uppercase tracking-wider">
-           <Link to="#" className="hover:text-gray-800 transition-colors">Privacy Policy</Link>
-           <Link to="#" className="hover:text-gray-800 transition-colors">Terms of Service</Link>
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 mt-20 pt-8 border-t border-border-color text-xs text-text-secondary flex flex-col md:flex-row justify-between items-center gap-4">
+        <p>&copy; {new Date().getFullYear()} VastraElite. All rights reserved.</p>
+        <div className="flex space-x-6">
+           <Link to="/privacy" className="hover:text-text-primary transition-colors">Privacy Policy</Link>
+           <Link to="/terms" className="hover:text-text-primary transition-colors">Terms of Service</Link>
+           <Link to="/cookies" className="hover:text-text-primary transition-colors">Cookie Policy</Link>
         </div>
       </div>
     </footer>

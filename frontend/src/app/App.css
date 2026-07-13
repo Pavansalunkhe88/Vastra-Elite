@@ -1,2 +1,26 @@
-
 @import "tailwindcss";
+
+@theme {
+  --color-primary-bg: #ffffff;
+  --color-secondary-bg: #fafafa;
+  --color-text-primary: #111111;
+  --color-text-secondary: #666666;
+  --color-accent-gold: #d4af37;
+  --color-border-color: #ececec;
+  
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-primary-bg text-text-primary font-sans antialiased selection:bg-accent-gold selection:text-white;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif font-normal;
+  }
+}

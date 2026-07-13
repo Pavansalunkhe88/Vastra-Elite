@@ -41,29 +41,29 @@ const Register = () => {
     };
 
     return (
-        <div className="min-h-screen flex bg-[#FAFAFA] font-sans">
+        <div className="min-h-screen flex bg-primary-bg font-sans">
             
             {/* Left Panel */}
-            <div className="hidden lg:flex w-1/2 bg-white flex-col justify-between p-20 border-r border-gray-100 relative overflow-hidden">
+            <div className="hidden lg:flex w-1/2 bg-primary-bg flex-col justify-between p-20 border-r border-border-color relative overflow-hidden">
                  <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-5 grayscale mix-blend-multiply"></div>
                  
                  <div className="relative z-10">
-                     <Link to="/" className="text-3xl font-serif font-light tracking-[0.2em] text-gray-900">
+                     <Link to="/" className="text-3xl font-serif font-light tracking-[0.2em] text-text-primary">
                          VASTRA ELITE
                      </Link>
                  </div>
                  
                  <div className="relative z-10 max-w-lg space-y-8">
-                     <h1 className="text-5xl font-serif text-gray-900 leading-[1.2] tracking-tight">
-                         Elevate Your <br/> <span className="italic font-light text-gray-400">Journey</span>
+                     <h1 className="text-5xl font-serif text-text-primary leading-[1.2] tracking-tight">
+                         Elevate Your <br/> <span className="italic font-light text-text-secondary">Journey</span>
                      </h1>
-                     <p className="text-gray-500 font-light leading-relaxed text-lg">
+                     <p className="text-text-secondary font-light leading-relaxed text-lg">
                          Join an exclusive community of fashion connoisseurs. Curate your wardrobe with premium collections that define elegance.
                      </p>
                  </div>
  
                  <div className="relative z-10">
-                     <p className="text-xs uppercase tracking-[0.2em] text-gray-400 font-medium">Est. 2026</p>
+                     <p className="text-xs uppercase tracking-[0.2em] text-text-secondary font-medium">Est. 2026</p>
                  </div>
             </div>
 
@@ -72,14 +72,14 @@ const Register = () => {
                 <div className="w-full max-w-md space-y-10 my-auto">
                     
                     <div className="lg:hidden text-center mb-12">
-                        <Link to="/" className="text-2xl font-serif font-light tracking-[0.2em] text-gray-900 inline-block">
+                        <Link to="/" className="text-2xl font-serif font-light tracking-[0.2em] text-text-primary inline-block">
                             VASTRA ELITE
                         </Link>
                     </div>
 
                     <div className="space-y-3">
-                        <h2 className="text-3xl font-serif tracking-wide text-gray-900">Create Account</h2>
-                        <p className="text-gray-500 font-light text-sm">Begin your exclusive fashion experience.</p>
+                        <h2 className="text-3xl font-serif tracking-wide text-text-primary">Create Account</h2>
+                        <p className="text-text-secondary font-light text-sm">Begin your exclusive fashion experience.</p>
                     </div>
 
                     {error && (
@@ -92,7 +92,7 @@ const Register = () => {
                     <form onSubmit={handleSubmit} className="space-y-6">
                         
                         <div className="space-y-2">
-                            <label className="text-xs uppercase tracking-wider text-gray-500 font-medium ml-1">Full Name</label>
+                            <label className="text-xs uppercase tracking-wider text-text-secondary font-medium ml-1">Full Name</label>
                             <input
                                 type="text"
                                 name="fullName"
@@ -100,12 +100,12 @@ const Register = () => {
                                 onChange={handleChange}
                                 required
                                 placeholder="Enter your full name"
-                                className="w-full bg-white border-b border-gray-300 px-4 py-3 focus:outline-none focus:border-gray-900 transition-colors font-light placeholder-gray-300"
+                                className="w-full bg-transparent border-b border-border-color px-4 py-3 focus:outline-none focus:border-text-primary transition-colors font-light text-text-primary placeholder-text-secondary"
                             />
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-xs uppercase tracking-wider text-gray-500 font-medium ml-1">Contact Number</label>
+                            <label className="text-xs uppercase tracking-wider text-text-secondary font-medium ml-1">Contact Number</label>
                             <input
                                 type="tel"
                                 name="contactNumber"
@@ -113,12 +113,12 @@ const Register = () => {
                                 onChange={handleChange}
                                 required
                                 placeholder="Enter your phone number"
-                                className="w-full bg-white border-b border-gray-300 px-4 py-3 focus:outline-none focus:border-gray-900 transition-colors font-light placeholder-gray-300"
+                                className="w-full bg-transparent border-b border-border-color px-4 py-3 focus:outline-none focus:border-text-primary transition-colors font-light text-text-primary placeholder-text-secondary"
                             />
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-xs uppercase tracking-wider text-gray-500 font-medium ml-1">Email Address</label>
+                            <label className="text-xs uppercase tracking-wider text-text-secondary font-medium ml-1">Email Address</label>
                             <input
                                 type="email"
                                 name="email"
@@ -126,12 +126,12 @@ const Register = () => {
                                 onChange={handleChange}
                                 required
                                 placeholder="name@example.com"
-                                className="w-full bg-white border-b border-gray-300 px-4 py-3 focus:outline-none focus:border-gray-900 transition-colors font-light placeholder-gray-300"
+                                className="w-full bg-transparent border-b border-border-color px-4 py-3 focus:outline-none focus:border-text-primary transition-colors font-light text-text-primary placeholder-text-secondary"
                             />
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-xs uppercase tracking-wider text-gray-500 font-medium ml-1">Password</label>
+                            <label className="text-xs uppercase tracking-wider text-text-secondary font-medium ml-1">Password</label>
                             <div className="relative">
                                 <input
                                     type={showPassword ? "text" : "password"}
@@ -140,12 +140,12 @@ const Register = () => {
                                     onChange={handleChange}
                                     required
                                     placeholder="Min. 6 characters"
-                                    className="w-full bg-white border-b border-gray-300 px-4 py-3 focus:outline-none focus:border-gray-900 transition-colors font-light placeholder-gray-300 pr-12"
+                                    className="w-full bg-transparent border-b border-border-color px-4 py-3 focus:outline-none focus:border-text-primary transition-colors font-light text-text-primary placeholder-text-secondary pr-12"
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-900"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-text-secondary hover:text-text-primary"
                                 >
                                     {showPassword ? (
                                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg>
@@ -156,18 +156,17 @@ const Register = () => {
                             </div>
                         </div>
 
-                        {/* Custom Seller Toggle */}
                         <div className="flex items-center gap-4 pt-4">
                             <button
                                 type="button"
                                 role="switch"
                                 aria-checked={formData.isSeller}
                                 onClick={() => setFormData(prev => ({...prev, isSeller: !prev.isSeller}))}
-                                className={`relative inline-flex h-5 w-10 items-center rounded-full transition-colors focus:outline-none ${formData.isSeller ? 'bg-gray-900' : 'bg-gray-300'}`}
+                                className={`relative inline-flex h-5 w-10 items-center rounded-full transition-colors focus:outline-none ${formData.isSeller ? 'bg-text-primary' : 'bg-border-color'}`}
                             >
                                 <span className={`inline-block h-3 w-3 transform rounded-full bg-white transition-transform ${formData.isSeller ? 'translate-x-6' : 'translate-x-1'}`} />
                             </button>
-                            <span className="text-sm text-gray-600 font-light cursor-pointer" onClick={() => setFormData(prev => ({...prev, isSeller: !prev.isSeller}))}>
+                            <span className="text-sm text-text-secondary font-light cursor-pointer" onClick={() => setFormData(prev => ({...prev, isSeller: !prev.isSeller}))}>
                                 Register as a Seller
                             </span>
                         </div>
@@ -175,20 +174,20 @@ const Register = () => {
                         <button 
                             type="submit" 
                             disabled={loading}
-                            className="w-full bg-gray-900 text-white uppercase tracking-[0.2em] text-xs font-medium py-5 hover:bg-gray-800 transition-colors mt-6 disabled:bg-gray-300"
+                            className="w-full bg-text-primary text-white uppercase tracking-[0.2em] text-xs font-medium py-5 hover:bg-[#333333] transition-colors mt-6 disabled:bg-border-color"
                         >
                             {loading ? 'Processing...' : 'Create Account'}
                         </button>
 
                         <div className="flex items-center gap-4 py-4">
-                            <div className="flex-1 h-px bg-gray-200"></div>
-                            <span className="text-xs text-gray-400 uppercase tracking-widest">or</span>
-                            <div className="flex-1 h-px bg-gray-200"></div>
+                            <div className="flex-1 h-px bg-border-color"></div>
+                            <span className="text-xs text-text-secondary uppercase tracking-widest">or</span>
+                            <div className="flex-1 h-px bg-border-color"></div>
                         </div>
 
                         <a 
                             href="/api/auth/google" 
-                            className="w-full flex items-center justify-center gap-3 border border-gray-200 py-4 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+                            className="w-full flex items-center justify-center gap-3 border border-border-color py-4 text-sm font-medium text-text-primary hover:bg-secondary-bg transition-colors"
                         >
                              <svg width="20" height="20" viewBox="0 0 24 24">
                                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -199,8 +198,8 @@ const Register = () => {
                             Continue with Google
                         </a>
 
-                        <p className="text-center text-sm text-gray-500 pt-6">
-                            Already have an account? <Link to="/login" className="text-gray-900 border-b border-gray-900 pb-0.5 ml-2 hover:text-gray-500 hover:border-gray-500 transition-colors">Sign In</Link>
+                        <p className="text-center text-sm text-text-secondary pt-6">
+                            Already have an account? <Link to="/login" className="text-text-primary border-b border-text-primary pb-0.5 ml-2 hover:text-text-secondary hover:border-text-secondary transition-colors">Sign In</Link>
                         </p>
                     </form>
                 </div>
