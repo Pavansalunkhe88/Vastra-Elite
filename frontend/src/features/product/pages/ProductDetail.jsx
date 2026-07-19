@@ -8,12 +8,7 @@ import Footer from '../components/Footer';
 import { useNavigate } from 'react-router';
 import { Truck, ShieldCheck, RefreshCcw, HeadphonesIcon } from 'lucide-react';
 
-const SIZES = ['S', 'M', 'L', 'XL'];
-const COLORS = [
-    { name: 'Onyx Black', hex: '#111111' },
-    { name: 'Pearl White', hex: '#F9F9F9' },
-    { name: 'Sandstone', hex: '#D7C9B1' }
-];
+
 
 function ProductDetail() {
     const { id } = useParams();
@@ -22,8 +17,8 @@ function ProductDetail() {
     const products = useSelector((state) => state.product.products);
     const navigate = useNavigate();
     
-    const [selectedSize, setSelectedSize] = useState('M');
-    const [selectedColor, setSelectedColor] = useState(COLORS[0]);
+    const [selectedSize, setSelectedSize] = useState('');
+    const [selectedColor, setSelectedColor] = useState(null);
     const [activeImageIndex, setActiveImageIndex] = useState(0);
 
     useEffect(() => {
@@ -34,6 +29,17 @@ function ProductDetail() {
     }, []);
 
     const product = products?.find(p => p._id === id);
+
+    useEffect(() => {
+        if (product) {
+            if (product.sizes && product.sizes.length > 0 && !selectedSize) {
+                setSelectedSize(product.sizes[0]);
+            }
+            if (product.colors && product.colors.length > 0 && !selectedColor) {
+                setSelectedColor(product.colors[0]);
+            }
+        }
+    }, [product]);
 
     if (!product) {
         return (
@@ -132,17 +138,18 @@ function ProductDetail() {
                             <div className="space-y-8 border-t border-border-color py-8">
                                 
                                 {/* Colors */}
+                                {product.colors && product.colors.length > 0 && (
                                 <div className="space-y-4">
                                     <div className="flex justify-between items-center">
                                         <span className="text-xs uppercase tracking-widest text-text-primary font-semibold">Color</span>
-                                        <span className="text-xs text-text-secondary font-light">{selectedColor.name}</span>
+                                        <span className="text-xs text-text-secondary font-light">{selectedColor?.name}</span>
                                     </div>
                                     <div className="flex gap-4">
-                                        {COLORS.map((color, idx) => (
+                                        {product.colors.map((color, idx) => (
                                             <button
                                                 key={idx}
                                                 onClick={() => setSelectedColor(color)}
-                                                className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all ${selectedColor.name === color.name ? 'border-text-primary p-[2px]' : 'border-transparent'}`}
+                                                className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all ${selectedColor?.name === color.name ? 'border-text-primary p-[2px]' : 'border-transparent'}`}
                                             >
                                                 <div 
                                                     className="w-full h-full rounded-full border border-border-color" 
@@ -152,15 +159,17 @@ function ProductDetail() {
                                         ))}
                                     </div>
                                 </div>
+                                )}
 
                                 {/* Sizes */}
+                                {product.sizes && product.sizes.length > 0 && (
                                 <div className="space-y-4">
                                     <div className="flex justify-between items-center">
                                         <span className="text-xs uppercase tracking-widest text-text-primary font-semibold">Size</span>
                                         <button className="text-xs text-text-secondary border-b border-text-secondary hover:text-text-primary hover:border-text-primary transition-colors">Size Guide</button>
                                     </div>
                                     <div className="grid grid-cols-4 gap-3">
-                                        {SIZES.map((size) => (
+                                        {product.sizes.map((size) => (
                                             <button
                                                 key={size}
                                                 onClick={() => setSelectedSize(size)}
@@ -171,6 +180,7 @@ function ProductDetail() {
                                         ))}
                                     </div>
                                 </div>
+                                )}
 
                             </div>
 

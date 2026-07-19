@@ -1,6 +1,6 @@
 import {Router} from 'express';
 import { authenticateSeller } from '../middlewares/auth.middleware.js';
-import { createProduct, getAllProducts, getSellerProducts } from '../controllers/product.controller.js';
+import { createProduct, getAllProducts, getSellerProducts, getProductsByCategory } from '../controllers/product.controller.js';
 import multer from 'multer';
 import { createProductValidator } from '../validator/product.validator.js';
 
@@ -34,6 +34,13 @@ productRouter.get('/seller', authenticateSeller,getSellerProducts );
  */
 
 productRouter.get('/', getAllProducts);
+
+/**
+ * @route GET /api/products/category/:category
+ * @desc Get products by category
+ * @access Public
+ */
+productRouter.get('/category/:category', getProductsByCategory);
 
 
 

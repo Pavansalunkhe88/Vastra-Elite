@@ -14,6 +14,19 @@ const productSchema =  new mongoose.Schema({
         ref:'user',
         required:true
     },
+    category: {
+        type: String,
+        enum: ['men', 'women', 'kids', 'unisex', 'accessories'],
+        required: true,
+        default: 'men'
+    },
+    sizes: [{
+        type: String
+    }],
+    colors: [{
+        name: String,
+        hex: String
+    }],
     price:{
         amount:{
             type:Number,

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useCart } from "../hook/useCart";
-import { useRazorpay } from "react-razorpay";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { X, Minus, Plus, ShoppingBag } from "lucide-react";
+import { useRazorpay } from 'react-razorpay';
 
 function CartPage() {
   const {
@@ -15,10 +15,10 @@ function CartPage() {
     handleCreateOrder,
   } = useCart();
 
-  const { error, isLoading, Razorpay } = useRazorpay();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.auth?.user || state.user);
   const navigate = useNavigate();
   const [isClosing, setIsClosing] = useState(false);
+  const { error, isLoading, Razorpay } = useRazorpay();
 
   useEffect(() => {
     handleGetCart();
@@ -42,37 +42,39 @@ function CartPage() {
   };
 
   async function handleCheckout() {
-    try {
-      const order = await handleCreateOrder();
-      
-      const options = {
-        key: "rzp_test_ShPLeL6jvXEWJb",
-        amount: order.amount, 
-        currency: order.currency,
-        name: "VastraElite",
-        description: "Order Transaction",
-        order_id: order.id, 
-        handler: (response) => {
-          console.log(response);
-          alert("Payment Successful!");
-          handleClose();
-        },
-        prefill: {
-          name: user?.fullname,
-          email: user?.email,
-          contact: user?.contact,
-        },
-        theme: {
-          color: "#111111",
-        },
-      };
+      try {
+          const order = await handleCreateOrder();
+          
+          const options = {
+              key: "rzp_test_ShPLeL6jvXEWJb",
+              amount: order.amount, 
+              currency: order.currency,
+              name: "VastraElite",
+              description: "Order Transaction",
+              order_id: order.id, 
+              handler: (response) => {
+                  console.log(response);
+                  handleClose();
+                  setTimeout(() => {
+                      navigate("/success");
+                  }, 300);
+              },
+              prefill: {
+                  name: user?.fullname || '',
+                  email: user?.email || '',
+                  contact: user?.contact || '',
+              },
+              theme: {
+                  color: "#111111",
+              },
+          };
 
-      const razorpayInstance = new Razorpay(options);
-      razorpayInstance.open();
-    } catch (err) {
-      console.error("Checkout error:", err);
-      alert("Failed to create order. Please try again.");
-    }
+          const razorpayInstance = new Razorpay(options);
+          razorpayInstance.open();
+      } catch (err) {
+          console.error("Checkout error:", err);
+          alert("Failed to create order. Please try again.");
+      }
   }
 
   return (
@@ -187,10 +189,9 @@ function CartPage() {
                   </div>
                   <button 
                       onClick={handleCheckout}
-                      disabled={isLoading}
-                      className="w-full bg-text-primary text-white py-4 text-sm font-semibold hover:bg-[#333333] transition-colors disabled:opacity-70 flex items-center justify-center gap-2"
+                      className="w-full bg-text-primary text-white py-4 text-sm font-semibold hover:bg-[#333333] transition-colors flex items-center justify-center gap-2"
                   >
-                      {isLoading ? 'Processing...' : 'Proceed to Checkout'}
+                      Proceed to Checkout
                   </button>
               </div>
           )}

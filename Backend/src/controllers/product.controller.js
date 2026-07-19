@@ -3,7 +3,7 @@ import { uploadFile } from '../services/storage.service.js';
 
 export async function createProduct(req, res) {
     try {
-        const { title, description, priceAmount, priceCurrency } = req.body;
+        const { title, description, priceAmount, priceCurrency, category, sizes, colors } = req.body;
         const seller = req.user;
 
         if (!req.files || req.files.length === 0) {
@@ -18,10 +18,22 @@ export async function createProduct(req, res) {
             return { url: result.url };
         }))
 
+        let parsedSizes = [];
+        let parsedColors = [];
+        try {
+            parsedSizes = sizes ? JSON.parse(sizes) : [];
+            parsedColors = colors ? JSON.parse(colors) : [];
+        } catch (e) {
+            console.error("Error parsing sizes/colors", e);
+        }
+
         const product = new productModel({
             title,
             description,
             seller: seller._id,
+            category: category || 'men',
+            sizes: parsedSizes,
+            colors: parsedColors,
             price: {
                 amount: priceAmount,
                 currency: priceCurrency || 'INR'
@@ -77,6 +89,25 @@ export async function getAllProducts(req, res) {
         });
     } catch (error) {
         console.error("Get All Products Error:", error);
+        res.status(500).json({
+            message: 'Internal Server Error',
+            success: false,
+            error: error.message
+        });
+    }
+}
+export async function getProductsByCategory(req, res) {
+    try {
+        const { category } = req.params;
+        const products = await productModel.find({ category }).populate('seller', 'fullname contact');
+
+        res.status(200).json({
+            message: 'Products fetched successfully',
+            success: true,
+            products
+        });
+    } catch (error) {
+        console.error("Get Products By Category Error:", error);
         res.status(500).json({
             message: 'Internal Server Error',
             success: false,
