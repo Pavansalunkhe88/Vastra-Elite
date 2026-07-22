@@ -10,6 +10,8 @@ import session from "express-session";
 import userModel from "./models/user.model.js";
 import cartRouter from "./routes/cart.routes.js";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
 
 
 const app = express();
@@ -84,16 +86,29 @@ passport.use(new GoogleStrategy({
     }
 }));
 
-app.get("/", (_req, res) => {
-    res.status(200).json({ message: "Server is running" });
-});
+const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
 
 // Explicit route to match exactly what Google calls based on GCP config!
 // We'll keep this in main app.js because the callbackURL is root-relative
-app.get("/auth/google/callback", passport.authenticate("google", { failureRedirect: "http://localhost:5173/login" }), googleCallback);
+app.get("/auth/google/callback", passport.authenticate("google", { failureRedirect: `${clientUrl}/login` }), googleCallback);
 
 app.use("/api/auth", authRouter);
 app.use("/api/products", productRouter);
 app.use("/api/cart", cartRouter);
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+if (process.env.NODE_ENV === "production") {
+    const frontendDistPath = path.resolve(__dirname, "../../frontend/dist");
+    app.use(express.static(frontendDistPath));
+    app.get(/(.*)/, (req, res) => {
+        res.sendFile(path.resolve(frontendDistPath, "index.html"));
+    });
+} else {
+    app.get("/", (_req, res) => {
+        res.status(200).json({ message: "Server is running in development mode" });
+    });
+}
 
 export default app;

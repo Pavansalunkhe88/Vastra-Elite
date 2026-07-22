@@ -87,11 +87,12 @@ export const login = async (req,res)=>{
 }        
 
 export const googleCallback = async (req, res) => {
+    const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
     try {
         const user = req.user;
 
         if (!user) {
-            return res.redirect("http://localhost:5173/login?error=auth_failed");
+            return res.redirect(`${clientUrl}/login?error=auth_failed`);
         }
 
         const token = jwt.sign({
@@ -109,11 +110,11 @@ export const googleCallback = async (req, res) => {
         });
 
         // Redirect to frontend homepage
-        res.redirect("http://localhost:5173/");
+        res.redirect(`${clientUrl}/`);
         
     } catch (error) {
         console.error("Google Callback Error:", error);
-        res.redirect("http://localhost:5173/login?error=internal_server_error");
+        res.redirect(`${clientUrl}/login?error=internal_server_error`);
     }
 }    
 
